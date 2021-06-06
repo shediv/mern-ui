@@ -1,0 +1,18 @@
+@import '@carbon/themes/scss/themes';
+// Use the g100 theme
+$carbon--theme: $carbon--theme--g100;
+@include carbon--theme();
+
+// Feature flags
+$css--font-face: true;
+$css--plex: true;
+
+// Global styles
+@import 'carbon-components/scss/globals/scss/styles.scss';
+
+// App styles
+@import './components/AppHeader/app-header.scss';
+@import './content/HomePage/home-page.scss';
+@import './content/LoginPage/login-page.scss';
+@import './content/Page404/page-404.scss';
+@import './content/Page403/page-403.scss';
