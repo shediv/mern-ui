@@ -68,6 +68,7 @@ export const LoginPage = (): React.ReactElement => {
             <div style={{marginBottom: '2rem'}}>
               <TextInput
                 id="password"
+                type="password"
                 invalidText="Invalid password."
                 labelText="password"
                 placeholder=""
