@@ -34,6 +34,8 @@ export const LoginPage = (): React.ReactElement => {
           openToast(AppConst.LOG_IN_ERROR)
         }
       });
+    } else {
+      openToast(AppConst.LOG_IN_VALIDATION)
     }
   };
 
