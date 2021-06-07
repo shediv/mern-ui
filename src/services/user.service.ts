@@ -29,9 +29,25 @@ export const UserService = {
       method: "post",
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
+    })
+
+    const result = await response.json()
+    return result;
+
+  },
+
+  updateUserPasswordCall: async (id: string, userInfo: any, token: string): Promise<UserData> => {
+    const response = await fetch(`${ApiEndpoint.USER_URL}/user/updatePassword/${id}`, {
+      method: "PATCH",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(userInfo),
     })
 
     const result = await response.json()
@@ -49,7 +65,7 @@ export const UserService = {
     formData.append('password', data.password);
     formData.append("picture", data.picture);
     
-    const response = await fetch(`${ApiEndpoint.USER_URL}/signup`, {
+    const response = await fetch(`${ApiEndpoint.USER_URL}/user/signup`, {
       method: "post",
       headers: {
         'Accept': 'application/json',

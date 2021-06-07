@@ -36,4 +36,13 @@ export const UserController = {
       return false;
     }    
   },
+
+  updateUserPassword: async (id: string, userInfo: any, token: string): Promise<boolean> => {
+    const userData: UserData = await UserService.updateUserPasswordCall(id, userInfo, token);
+    if (userData?.email) {
+      return true;
+    } else {
+      return false;
+    }    
+  },
 };

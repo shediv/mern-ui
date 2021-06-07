@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useLayoutEffect, useEffect } from 'react';
+import { TextInput, Button } from 'carbon-components-react';
 import { UserController } from 'controllers';
 import userStore from 'store/user';
 import { AjaxError } from 'rxjs/ajax';
@@ -12,6 +13,7 @@ import Cookies from 'js-cookie';
 import jwt_decode from "jwt-decode";
 import { AppConst } from 'constants/app.constant';
 import { ApiEndpoint } from 'constants/api-endpoint.constant';
+import { openToast } from 'toast-ts';
 
 import {
   Tabs,
@@ -22,6 +24,7 @@ export const HomePage = (): React.ReactElement => {
   const [userState, setUserState] = useState(userStore.getData());
   const [currentUserId, setCurrentUserId] = useState('');
   const [userToken, setUserToken] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const [userInfo, setUserInfo] = useState<any>();
 
   const history = useHistory();
@@ -55,6 +58,19 @@ export const HomePage = (): React.ReactElement => {
       });
     }    
   }, [currentUserId]);
+
+  const updatePassword = (e:any) => {
+    e.preventDefault();
+    if (newPassword && newPassword != '') {
+      UserController.updateUserPassword(currentUserId, {"password": newPassword}, userToken).then((data) => {
+        if(data) {
+          openToast(AppConst.PASSWORD_UPDATED)
+        } else {
+          openToast(AppConst.PASSWORD_UPDATED_ERROR)
+        }
+      })
+    }
+  }
 
   return (
     <div className="bx--grid bx--grid--full-width">            
@@ -98,10 +114,28 @@ export const HomePage = (): React.ReactElement => {
             <Tab label="Update Password">
               <div className="bx--grid bx--grid--no-gutter bx--grid--full-width">
                 <div className="bx--row landing-page__tab-content">
-                  <div className="bx--col-lg-16">
-                    Rapidly build beautiful and accessible experiences. The
-                    Carbon kit contains all resources you need to get started.
-                  </div>
+                  <div style={{marginBottom: '1rem'}}>
+                    <TextInput
+                      id="password"
+                      invalidText="Invalid password."
+                      labelText="New Password"
+                      placeholder=""
+                      name="New Password" 
+                      value={newPassword}
+                      onChange={(e) => {console.log("e ==", e.target); setNewPassword(e.target.value)}}
+                      required 
+                    />
+
+                  <Button
+                    style={{marginTop: '1rem'}}
+                    kind="primary"
+                    tabIndex={0}
+                    onClick={updatePassword}
+                  >
+                    Update Password
+                  </Button>
+                  </div>                  
+
                 </div>
               </div>
             </Tab>
