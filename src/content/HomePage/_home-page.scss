@@ -4,3 +4,17 @@
 @include carbon--font-face-sans();
 
 @import '@carbon/ibmdotcom-styles/scss/components/leadspace/leadspace';
+
+.profile-pic {
+    height: 10rem;
+    width: 10rem;
+}
+
+.info-tab {
+    margin-top: 2rem;
+}
+
+.content {
+    height: 5rem;
+    width: 5rem;
+}

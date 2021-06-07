@@ -11,7 +11,7 @@ import { UserData } from 'types/user';
 
 export const UserService = {
   fetchUserData: async (userId: string, token: string): Promise<UserData> => {
-    const response = await fetch(`${ApiEndpoint.USER_URL}/details/${userId}`, {
+    const response = await fetch(`${ApiEndpoint.USER_URL}/user/details/${userId}`, {
       method: "get",
       headers: {
         'Accept': 'application/json',
@@ -25,7 +25,7 @@ export const UserService = {
   },
 
   loginUserCall: async (data: any): Promise<UserData> => {
-    const response = await fetch(`${ApiEndpoint.USER_URL}/signin`, {
+    const response = await fetch(`${ApiEndpoint.USER_URL}/user/signin`, {
       method: "post",
       headers: {
         'Accept': 'application/json',
