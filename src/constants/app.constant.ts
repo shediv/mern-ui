@@ -9,4 +9,6 @@ export class AppConst {
   public static SIGN_UP_ERROR = 'Account exist with email id';
   public static PASSWORD_UPDATED = 'Password Updated Successfully';
   public static PASSWORD_UPDATED_ERROR = 'Password Updated Failed';
+  public static DELETE_SUCCESS = 'Delete Successfully';
+  public static DELETE_ERROR = 'Delete Failed';
 }

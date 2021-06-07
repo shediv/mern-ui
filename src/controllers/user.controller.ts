@@ -45,4 +45,13 @@ export const UserController = {
       return false;
     }    
   },
+
+  deleteField: async (id: string, fieldInfo: any, token: string): Promise<boolean> => {
+    const userData: UserData = await UserService.deleteFieldCall(id, fieldInfo, token);
+    if (userData?.email) {
+      return true;
+    } else {
+      return false;
+    }    
+  },
 };

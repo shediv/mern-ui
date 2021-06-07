@@ -5,6 +5,7 @@
 
 import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { TextInput, Button } from 'carbon-components-react';
+import { Delete20 } from '@carbon/icons-react';
 import { UserController } from 'controllers';
 import userStore from 'store/user';
 import { AjaxError } from 'rxjs/ajax';
@@ -65,9 +66,24 @@ export const HomePage = (): React.ReactElement => {
       UserController.updateUserPassword(currentUserId, {"password": newPassword}, userToken).then((data) => {
         if(data) {
           openToast(AppConst.PASSWORD_UPDATED)
-        } else {
-          openToast(AppConst.PASSWORD_UPDATED_ERROR)
         }
+      }).catch((error: AjaxError) => {
+        console.log("password update error = ", error)
+        openToast(AppConst.PASSWORD_UPDATED_ERROR)
+      })
+    }
+  }
+
+  const deleteField = (e:any) => {
+    let fieldName = e || '';
+    if (fieldName && fieldName != '') {
+      UserController.deleteField(currentUserId, {"deleteField": fieldName}, userToken).then((data) => {        
+        console.log("delete error = ", data)
+        openToast(AppConst.DELETE_SUCCESS)
+        window.location.reload();
+      }).catch((error: AjaxError) => {
+        console.log("delete error = ", error)
+        openToast(AppConst.DELETE_ERROR)
       })
     }
   }
@@ -89,25 +105,31 @@ export const HomePage = (): React.ReactElement => {
             <Tab label="About">
               <div className="bx--grid bx--grid--no-gutter bx--grid--full-width">
                 <div className="bx--row landing-page__tab-content">
-                  <div className="bx--col-md-4 bx--col-lg-7 content">
-                    <span> First Name: {userInfo?.firstName}</span>
-                  </div>
+                  {userInfo?.firstName && <div className="bx--col-md-4 bx--col-lg-7 content">
+                      <span> First Name: {userInfo?.firstName} <Delete20 className="delete-icon" id="try-free-delete" onClick={() => deleteField('firstName')} /></span>
+                    </div>
+                  }
 
-                  <div className="bx--col-md-4 bx--col-lg-7 content">
-                    <span> Last Name: {userInfo?.lastName}</span>
-                  </div>
+                  {userInfo?.lastName && <div className="bx--col-md-4 bx--col-lg-7 content">
+                      <span> Last Name: {userInfo?.lastName} <Delete20 className="delete-icon" id="try-free-delete" onClick={() => deleteField('lastName')} /></span>
+                    </div>
+                  }
 
                   <div className="bx--col-md-4 bx--col-lg-7 content">
                     <span> Email: {userInfo?.email}</span>
                   </div>
+                  
 
-                  <div className="bx--col-md-4 bx--col-lg-7">
-                    <span> Phone Number: {userInfo?.phoneNumber}</span>
-                  </div>
+                  {userInfo?.phoneNumber && <div className="bx--col-md-4 bx--col-lg-7">
+                      <span> Phone Number: {userInfo?.phoneNumber} <Delete20 className="delete-icon" id="try-free-delete" onClick={() => deleteField('phoneNumber')} /></span>
+                    </div>
+                  }
 
-                  <div className="bx--col-md-4 bx--col-lg-7">
-                    <span> Birth Date: {userInfo?.dob}</span>
-                  </div>
+                  {userInfo?.phoneNumber && <div className="bx--col-md-4 bx--col-lg-7">
+                      <span> Birth Date: {userInfo?.dob} <Delete20 className="delete-icon" id="try-free-delete" onClick={() => deleteField('dob')} /></span>
+                    </div>
+                  }
+
                 </div>
               </div>
             </Tab>

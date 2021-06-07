@@ -54,6 +54,22 @@ export const UserService = {
     return result;
 
   },
+
+  deleteFieldCall: async (id: string, fieldInfo: any, token: string): Promise<UserData> => {
+    const response = await fetch(`${ApiEndpoint.USER_URL}/user/delete/${id}/info`, {
+      method: "DELETE",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(fieldInfo),
+    })
+
+    const result = await response.json()
+    return result;
+
+  },
   
   signupUserCall: async (data: any): Promise<UserData> => {
     var formData = new FormData();
